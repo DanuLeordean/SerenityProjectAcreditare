@@ -1,4 +1,4 @@
 package org.fasttrackit.pages;
 
-public class ShopPage {
+public class RegisterPage {
 }

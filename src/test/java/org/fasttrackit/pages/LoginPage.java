@@ -9,27 +9,34 @@ import org.openqa.selenium.support.FindBy;
 
 public class LoginPage extends PageObject {
 
-    @FindBy(css = "#menu-item-64 > a")
-    private WebElementFacade accountButton;
-
     @FindBy(id = "username")
     private WebElementFacade loginUsernameField;
-
     @FindBy(id = "password")
     private WebElementFacade loginPasswordField;
-
     @FindBy(id="rememberme")
     private WebElementFacade rememberMeBox;
-
     @FindBy(css="[name='login']")
     private WebElementFacade loginButton;
 
-    public void clickOnAccountButton (){
-        clickOn(accountButton);
-    }
-    public void setLoginUsernameField(String value){
-        typeInto(loginUsernameField, value);
-    }
+    @FindBy(css = "#post-7 > div > div > ul > li")
+    private WebElementFacade missingUsernameError;
+
+    @FindBy (css = "#post-7 > div > div > ul > li")
+    private WebElementFacade signInErrorMessage;
+
+    @FindBy(css = "#customer_login > div.u-column1.col-1 > form > p.woocommerce-LostPassword.lost_password > a")
+    private WebElementFacade lostYourPasswordButton;
+
+    @FindBy(id = "user_login")
+    private WebElementFacade lostPasswordField;
+
+    @FindBy(css = "#post-7 > div > div > form > p:nth-child(4) > button")
+        private WebElementFacade resetPasswordButton;
+
+
+
+
+    public void setLoginUsernameField(String value){typeInto(loginUsernameField, value);}
     public void setLoginPasswordField(String value){
         typeInto(loginPasswordField,value);
     }
@@ -40,5 +47,13 @@ public class LoginPage extends PageObject {
         clickOn(loginButton);
     }
 
-
+    public void verifySignInErrorMessage(String error) {
+        signInErrorMessage.shouldContainOnlyText(error);
+    }
+    public void verifyLoginErrorMessage(String error){
+        missingUsernameError.shouldContainOnlyText(error);
+    }
+    public void clickLostPasswordButton(){
+        lostYourPasswordButton.click();
+    }
 }
