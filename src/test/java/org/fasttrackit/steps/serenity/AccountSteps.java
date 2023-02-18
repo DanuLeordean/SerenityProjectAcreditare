@@ -2,15 +2,16 @@ package org.fasttrackit.steps.serenity;
 
 import net.thucydides.core.annotations.Step;
 import net.thucydides.core.steps.ScenarioSteps;
-import org.apache.bcel.Constants;
 import org.fasttrackit.pages.AccountPage;
 import org.fasttrackit.pages.HomePage;
 import org.fasttrackit.pages.LoginPage;
+import org.fasttrackit.utils.Constants;
 import org.junit.Assert;
 
 public class AccountSteps extends ScenarioSteps {
     private HomePage homePage;
     private LoginPage loginPage;
+    private LoginSteps loginSteps;
     private AccountPage accountPage;
 
     @Step
@@ -21,13 +22,17 @@ public class AccountSteps extends ScenarioSteps {
 
     @Step
     public void inputResetPasswordField(){
-        accountPage.setLostPasswordField("danuwenthome@gmail.com");
+        accountPage.setLostPasswordField(Constants.USER_EMAIL);
         accountPage.clickResetPasswordButton();
     }
 
     @Step
     public void goToCheckout(){
         accountPage.clickCheckoutButton();
+    }
+    @Step
+    public void logOut(){
+        accountPage.clickLogOut();
     }
 
     @Step
@@ -39,8 +44,8 @@ public class AccountSteps extends ScenarioSteps {
     public void goToShop(){
         accountPage.clickOnShopButton();
     }
-    public void verifyIfAccountButtonsAreInteractible(){
-        Assert.assertTrue(accountPage.checkAccountButtonsAreInteractible());
+    public void verifyIfAccountButtonsCanInteract(){
+        Assert.assertTrue(accountPage.checkAccountButtonsCanInteract());
     }
 
 

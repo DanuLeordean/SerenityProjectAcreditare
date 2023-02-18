@@ -11,32 +11,33 @@ public class HomePage extends PageObject {
     @FindBy(css = "#menu-item-64 > a")
     private WebElementFacade accountButton;
 
-    @FindBy(id = "reg_email")
-    private WebElementFacade registerEmailField;
+    @FindBy(css = "#menu-item-66 > a")
+    private WebElementFacade shopButton;
 
-    @FindBy(id = "reg_password")
-    private WebElementFacade registerPasswordField;
+    @FindBy(css = "#menu-item-65 > a")
+    private WebElementFacade checkoutButton;
 
-    @FindBy(css = "[name='register']")
-    private WebElementFacade registerButton;
+    @FindBy(css = "#masthead > div > div.header-top.cl > div.search-box > i")
+    private WebElementFacade searchButton;
 
-    public HomePage() {
-    }
+    @FindBy(css = "#masthead > div > div.header-top.cl > div.search-box > form > input[type=text]")
+    private WebElementFacade searchField;
+
+    @FindBy(css = "#masthead > div > div.header-top.cl > div.search-box > form > button > i")
+    private WebElementFacade searchButton2;
+
 
     public void clickOnAccountButton(){
         clickOn(accountButton);
     }
-    public void clickOnRegisterEmailField (String value){
-        typeInto(registerEmailField, value);
-    }
-    public void clickOnRegisterPasswordField(String value){
-        typeInto(registerPasswordField, value);
-    }
-    public void clickOnRegisterButton (){
-        clickOn(registerButton);
+
+    public void setSearchField(String keyword){
+        clickOn(searchButton);
+        typeInto(searchField,keyword);
     }
 
-
-
-
+    public void clickSearchIcon(){
+        waitFor(searchField);
+        clickOn(searchButton2);
+    }
 }

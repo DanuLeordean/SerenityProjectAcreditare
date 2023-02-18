@@ -2,35 +2,44 @@ package org.fasttrackit.steps.serenity;
 
 import net.thucydides.core.annotations.Step;
 import net.thucydides.core.steps.ScenarioSteps;
-import org.fasttrackit.pages.CheckoutPage;
-import org.fasttrackit.pages.HomePage;
+import org.fasttrackit.pages.*;
+import org.junit.Assert;
 
 public class RegisterSteps extends ScenarioSteps {
-
     private HomePage homePage;
-    private CheckoutPage checkoutPage;
-
-
+    private LoginPage loginPage;
+    private AccountPage accountPage;
+    private RegisterPage registerPage;
 
 
     @Step
-
-    public void navigateToAccountPage(){
+    public void navigateToHomePage(){
         homePage.open();
+    }
+
+    @Step
+    public void navigateToRegister(){
         homePage.clickOnAccountButton();
     }
-
     @Step
-
-    public void typeRegisterEmail (String email){
-        homePage.clickOnRegisterEmailField(email);
+    public void setCredentials(String email, String password){
+        registerPage.setEmailField(email);
+        registerPage.setPasswordField(password);
     }
-    public void typeRegisterPassword (String password){
-        homePage.clickOnRegisterPasswordField(password);
-    }
-
     @Step
     public void clickOnRegister(){
-        homePage.clickOnRegisterButton();
+        registerPage.clickRegisterButton();
+    }
+    @Step
+    public void verifyUsernameMessage(String userName){
+        accountPage.verifyWelcomeMessage(userName);
+    }
+    @Step
+    public void verifyRegistryErrorMessage(String Error){
+        registerPage.verifyRegistryErrorMessage(Error);
+    }
+    @Step
+    public void verifyWeakPasswordAndHintAreVisible(){
+        Assert.assertTrue(registerPage.checkWeakPassAndHintareVisible());
     }
 }

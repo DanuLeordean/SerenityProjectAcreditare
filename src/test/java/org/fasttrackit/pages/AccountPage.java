@@ -59,6 +59,7 @@ public class AccountPage extends PageObject {
     public void clickOnShopButton(){clickOn(shopButton);}
 
     public void clickResetPasswordButton(){clickOn(resetPasswordButton);}
+    public void clickLogOut(){logoutButton.click();}
 
     public boolean logOutAssertion(){
         if(logoutAssertion.isCurrentlyVisible())
@@ -67,7 +68,7 @@ public class AccountPage extends PageObject {
             return false;
         }
     }
-    public boolean checkAccountButtonsAreInteractible(){
+    public boolean checkAccountButtonsCanInteract(){
         if(ordersButton.isClickable()&& ordersButton.isCurrentlyVisible()
         &&downloadsButton.isClickable() &&downloadsButton.isCurrentlyVisible()
         &&addressesButton.isClickable()&&addressesButton.isCurrentlyVisible()

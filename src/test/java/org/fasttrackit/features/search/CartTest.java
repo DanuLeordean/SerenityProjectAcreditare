@@ -1,30 +1,93 @@
 package org.fasttrackit.features.search;
 
-import net.serenitybdd.junit.runners.SerenityRunner;
-import net.thucydides.core.annotations.Managed;
-import net.thucydides.core.annotations.Steps;
-import org.fasttrackit.steps.serenity.CartSteps;
-import org.junit.Before;
+import net.serenitybdd.core.pages.WebElementFacade;
+import org.fasttrackit.utils.Constants;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.openqa.selenium.WebDriver;
 
-@RunWith(SerenityRunner.class)
-public class CartTest {
-    @Managed(uniqueSession = true)
-    public WebDriver driver;
+public class CartTest extends BaseTest{
 
-    @Steps
-    private CartSteps addToCartSteps;
 
-    @Before
-    public void maximizeBrowser(){
-        driver.manage().window().maximize();}
 
     @Test
-    public void addToCartTest(){
-        addToCartSteps.navigateToShopPage();
-        addToCartSteps.addProductToCart();
+    public void addToCartTest() {
+        loginSteps.doLogin(Constants.USER_EMAIL, Constants.USER_PASS);
+        searchSteps.doSearch("Beanie");
+        productSteps.selectProductFromList("Beanie with Logo");
+        productSteps.clickAddToCart();
+        cartSteps.verifySuccessMessage("View cart");
+    }
+    @Test
+    public void removeProductFromCartTest() {
+        loginSteps.doLogin(Constants.USER_EMAIL, Constants.USER_PASS);
+        searchSteps.doSearch("Beanie");
+        productSteps.selectProductFromList("Beanie with Logo");
+        productSteps.clickAddToCart();
+        productSteps.goToCart();
+        cartSteps.removeProductFromChekout();
+        cartSteps.verifyProductRemovalMessage("Beanie with Logo");
+    }
+
+    @Test
+    public void verifyProductAndCartQuantityIsEqualTest() {
+        loginSteps.doLogin(Constants.USER_EMAIL, Constants.USER_PASS);
+        searchSteps.doSearch("Beanie");
+        productSteps.selectProductFromList("Beanie with Logo");
+        productSteps.selectQuantity();
+        productSteps.clickAddToCart();
+        productSteps.goToCart();
+        cartSteps.checkQuantityIsEqual();
+
+
+    }
+
+    @Test
+    public void verifyCheckoutPrices() {
+        loginSteps.doLogin(Constants.USER_EMAIL, Constants.USER_PASS);
+        searchSteps.doSearch("Beanie");
+        productSteps.selectProductFromList("Beanie with Logo");
+        productSteps.clickAddToCart();
+        productSteps.goToCart();
+        cartSteps.checkCartSubtotalIsCorrect();
+
+    }
+
+    @Test
+    public void verifyEmptyCouponFieldAlertMessageTest() {
+        loginSteps.doLogin(Constants.USER_EMAIL, Constants.USER_PASS);
+        searchSteps.doSearch("Beanie");
+        productSteps.selectProductFromList("Beanie with Logo");
+        productSteps.clickAddToCart();
+        productSteps.goToCart();
+        cartSteps.verifyEmptyCouponAllertMessage("Please enter a coupon code.");
+    }
+
+    @Test
+    public void verifyInvalidCouponAlertMessageTest() {
+        loginSteps.doLogin(Constants.USER_EMAIL, Constants.USER_PASS);
+        searchSteps.doSearch("Beanie");
+        productSteps.selectProductFromList("Beanie with Logo");
+        productSteps.clickAddToCart();
+        productSteps.goToCart();
+        cartSteps.typeIntoCouponField("QMJR8AMW");
+        cartSteps.verifyFakeCouponAllertMessage("Coupon \"qmjr8amw\" does not exist!");
+    }
+
+    @Test
+    public void verifyAlreadyUsedCouponAlertMessageTest() {
+        loginSteps.doLogin(Constants.USER_EMAIL, Constants.USER_PASS);
+        searchSteps.doSearch("Beanie");
+        productSteps.selectProductFromList("Beanie with Logo");
+        productSteps.clickAddToCart();
+        productSteps.goToCart();
+        cartSteps.typeIntoCouponField("fyjed");
+        cartSteps.verifyAlreadyUsedCouponAllertMessage("Coupon code already applied!");
+    }
+    @Test
+    public void verifyEmptyCartMessageIsDisplayed(){
+        loginSteps.doLogin(Constants.USER_EMAIL, Constants.USER_PASS);
+        accountSteps.goToCheckout();
+        cartSteps.verifyEmptyCartMessageIsDisplayed();
 
     }
 }
+
