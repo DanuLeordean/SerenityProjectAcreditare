@@ -15,6 +15,7 @@ public class ProductSteps extends ScenarioSteps {
 
     @Step
     public void selectProductFromList(String product){
+
         searchResultsPage.selectProductFromList(product);
     }
 

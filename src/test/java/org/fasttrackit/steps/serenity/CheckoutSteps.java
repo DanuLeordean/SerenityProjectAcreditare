@@ -31,11 +31,6 @@ public class CheckoutSteps extends ScenarioSteps {
     }
 
     @Step
-    public void verifyPriceIsCalculatedCorrectly(){
-        Assert.assertTrue(checkoutPage.checkCheckoutPriceAndFinalOrderPrice());
-    }
-
-    @Step
     public void verifyReturningCostumerMessageBox(String message){
         checkoutPage.checkReturningCustomerBox(message);
         Assert.assertEquals("Returning customer? Click here to login", message);

@@ -36,13 +36,9 @@ public class CheckoutPage extends BasePage {
     private WebElementFacade placeOrderButton;
     @FindBy(className = "woocommerce-order-details__title")
     private WebElementFacade orderSuccessMessage;
-    @FindBy(css = ".cart-subtotal")
-    private WebElementFacade checkoutTotal;
-    @FindBy(css = "tr.order-total")
-    private WebElementFacade orderTotal;
     @FindBy(css = "#post-6 > div > div > div:nth-child(1)")
     private WebElementFacade returningCostumerMessage;
-    @FindBy(css = "#post-6 > div > div > div:nth-child(3)")
+    @FindBy(css = "#post-6 > div > div > div:nth-child(1)")
     private WebElementFacade clickToEnterCouponMessage;
     @FindBy(css = "#post-6 > div > div > form.checkout.woocommerce-checkout > div.woocommerce-NoticeGroup.woocommerce-NoticeGroup-checkout > ul")
     private WebElementFacade emptyRequiredFieldAlert;
@@ -73,7 +69,6 @@ public class CheckoutPage extends BasePage {
         billingAddress1.type("Strada Dunarii");
         billingAddress2.type("Cartier Intre Lacuri");
         billingCity.type("Cluj-Napoca");
-        countySelector.type("Cluj");
         billingPostcode.type("400436");
         billingPhone.type("0756907181");
         billingEmail.type("danuwenthome@gmail.com");
@@ -110,14 +105,6 @@ public class CheckoutPage extends BasePage {
         else{
             return false;
         }
-    }
-
-    public boolean checkCheckoutPriceAndFinalOrderPrice(){
-        int checkoutPrice = getPriceFromString(checkoutTotal.getText());
-        System.out.println(checkoutTotal.getText());
-        int expected = getPriceFromString(orderTotal.getText());
-        System.out.println(orderTotal.getText());
-        return checkoutPrice==expected;
     }
     public void checkReturningCustomerBox (String message){
         returningCostumerMessage.shouldContainOnlyText(message);

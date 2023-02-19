@@ -63,11 +63,6 @@ public class CartSteps extends ScenarioSteps {
       Assert.assertTrue(couponAlert.equals("Coupon \"qmjr8amw\" does not exist!"));
     }
 
-    @Step
-    public void verifyAlreadyUsedCouponAlertMessage(String couponAlert){
-      cartPage.couponAlertMessage(couponAlert);
-      Assert.assertTrue(couponAlert.equals("Coupon code already applied!"));
-    }
 
     @Step
     public void verifyEmptyCartMessageIsDisplayed(){

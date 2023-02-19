@@ -20,7 +20,7 @@ public class SearchResultsPage extends PageObject {
 
     public boolean checkListForProduct(String productName){
         for (WebElementFacade element : productsList){
-            if(element.findElement(By.cssSelector("h2.entry-title")).getText().equalsIgnoreCase(productName)){
+            if(element.findElement(By.cssSelector("#post-36 > header > h2")).getText().equalsIgnoreCase(productName)){
                 return true;
             }
         }
@@ -29,8 +29,8 @@ public class SearchResultsPage extends PageObject {
 
     public void selectProductFromList(String product){
         for(WebElementFacade element : productsList){
-            if(element.findElement(By.cssSelector("h2.entry-title")).getText().equalsIgnoreCase(product)){
-                element.findElement(By.cssSelector("a")).click();
+            if(element.findElement(By.cssSelector("#post-36 > header > h2")).getText().equalsIgnoreCase(product)){
+                element.findElement(By.cssSelector("#post-36 > header > h2")).click();
                 break;
             }
         }

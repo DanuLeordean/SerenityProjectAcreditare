@@ -41,69 +41,67 @@ public class CartPage extends BasePage {
     @FindBy(css = "input#coupon_code.input-text")
     private WebElementFacade couponCodeTextField;
 
-    @FindBy (css = "#post-11 > div > div > div")
+    @FindBy(css = "#post-5 > div > div > div")
     private WebElementFacade emptyCartAlertMessage;
 
-    public CartPage() {
-    }
 
-    public void verifySuccessMessage(String alertMessage){
-        viewCartButton.shouldContainOnlyText("View cart");
-    }
-    public void removeProductFromCheckout(){
-        removeButton.click();
-    }
-    public void verifyProductRemovalMessage(String productName){
-        productRemovedAlert.shouldContainOnlyText("“" + productName + "”" + " removed. Undo?");
-    }
-
-    public int getSubtotalPriceFromProducts() {
-        int sum = 0;
-        for (WebElementFacade element : listOfProductsSubtotalSpan) {
-            sum += getPriceFromString(element.getText());
+        public void verifySuccessMessage (String alertMessage){
+            viewCartButton.shouldContainOnlyText("View cart");
         }
-        return sum;
-    }
+        public void removeProductFromCheckout () {
+            removeButton.click();
+        }
+        public void verifyProductRemovalMessage (String productName){
+            productRemovedAlert.shouldContainOnlyText("“" + productName + "”" + " removed. Undo?");
+        }
 
-    public boolean isSubtotalPriceCalculatedCorrectly(){
-        int subtotalPrice = getPriceFromString(cartSubtotalPriceSpan.getText());
-        int expected = getSubtotalPriceFromProducts();
-        System.out.println("ok");
-        return subtotalPrice == expected;
-    }
+        public int getSubtotalPriceFromProducts () {
+            int sum = 0;
+            for (WebElementFacade element : listOfProductsSubtotalSpan) {
+                sum += getPriceFromString(element.getText());
+            }
+            return sum;
+        }
 
-    public int getCartQuantity(){
-        int a = Integer.parseInt(cartQuantityField.getValue());
-        System.out.println(a);
-        System.out.println("Cart");
-        return a;
-    }
+        public boolean isSubtotalPriceCalculatedCorrectly () {
+            int subtotalPrice = getPriceFromString(cartSubtotalPriceSpan.getText());
+            int expected = getSubtotalPriceFromProducts();
+            System.out.println("ok");
+            return subtotalPrice == expected;
+        }
 
-    public void clickCouponButton(){
-        couponButton.click();
-    }
+        public int getCartQuantity () {
+            int a = Integer.parseInt(cartQuantityField.getValue());
+            System.out.println(a);
+            System.out.println("Cart");
+            return a;
+        }
 
-    public void verifyEmptyCouponMessage(String alertMessage){
-        couponAlertMessage.getText();
-        couponAlertMessage.shouldContainOnlyText("Please enter  coupon code.");
-    }
+        public void clickCouponButton () {
+            couponButton.click();
+        }
 
-    public void useFakeCouponCode(String fakeCouponCode){
-        couponCodeTextField.select();
-        typeInto(couponCodeTextField, fakeCouponCode);
-    }
+        public void verifyEmptyCouponMessage (String alertMessage){
+            couponAlertMessage.getText();
+            couponAlertMessage.shouldContainOnlyText("Please enter a coupon code.");
+        }
 
-    public void couponAlertMessage(String couponAlert){
-        couponAlertMessage.shouldContainOnlyText(couponAlert);
-    }
+        public void useFakeCouponCode (String fakeCouponCode){
+            couponCodeTextField.select();
+            typeInto(couponCodeTextField, fakeCouponCode);
+        }
 
-    public boolean checkEmptyCartMessageIsDisplayed(){
-        System.out.println(emptyCartAlertMessage.getText());
-        if (emptyCartAlertMessage.isCurrentlyVisible()
-                && emptyCartAlertMessage.getText().equals("Checkout is not available whilst your cart is empty."))
-            return true;
-        else{
-            return false;
+        public void couponAlertMessage (String couponAlert){
+            couponAlertMessage.shouldContainOnlyText(couponAlert);
+        }
+
+        public boolean checkEmptyCartMessageIsDisplayed () {
+            System.out.println(emptyCartAlertMessage.getText());
+            if (emptyCartAlertMessage.isCurrentlyVisible()
+                    && emptyCartAlertMessage.getText().equals("Checkout is not available whilst your cart is empty."))
+                return true;
+            else {
+                return false;
+            }
         }
     }
-}

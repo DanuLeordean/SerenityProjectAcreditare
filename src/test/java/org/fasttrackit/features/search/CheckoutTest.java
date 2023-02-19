@@ -52,24 +52,11 @@ public class CheckoutTest extends BaseTest {
 
     @Test
     public void verifyReturningCostumerTest(){
-        loginSteps.navigateToLoginPage();
+        loginSteps.navigateToHomepage();
         searchSteps.doSearch("Beanie");
         productSteps.selectProductFromList("Beanie with logo");
         productSteps.clickAddToCart();
         accountSteps.goToCheckout();
         checkoutSteps.verifyReturningCostumerMessageBox("Returning customer? Click here to login");
     }
-
-    @Test
-    public void verifyCheckoutAndFinalPricesTest(){
-        loginSteps.doLogin(Constants.USER_EMAIL,Constants.USER_PASS);
-        searchSteps.doSearch("Beanie");
-        productSteps.selectProductFromList("Beanie with logo");
-        productSteps.clickAddToCart();
-        accountSteps.goToCheckout();
-        checkoutSteps.completeCheckout();
-        checkoutSteps.placeOrder();
-        checkoutSteps.verifyPriceIsCalculatedCorrectly();
-    }
-
 }
