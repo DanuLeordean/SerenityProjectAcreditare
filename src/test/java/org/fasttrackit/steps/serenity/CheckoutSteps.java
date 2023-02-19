@@ -2,51 +2,57 @@ package org.fasttrackit.steps.serenity;
 
 import net.thucydides.core.annotations.Step;
 import net.thucydides.core.steps.ScenarioSteps;
+import org.apache.bcel.generic.CHECKCAST;
 import org.fasttrackit.pages.CheckoutPage;
-import org.fasttrackit.pages.HomePage;
-
+import org.junit.Assert;
 public class CheckoutSteps extends ScenarioSteps {
 
-    private HomePage homePage;
     private CheckoutPage checkoutPage;
 
-
     @Step
-    public void navigateToCheckoutPage(){
-        homePage.open();
-        checkoutPage.clickOnCheckoutButton();
+    public void completeCheckout(){
+        checkoutPage.completeCheckoutFields();
     }
-
-    @Step
-    public void typeBillingFirstName(String value){checkoutPage.setBillingFirstName(value);}
-    public void typeBillingLastName(String value){checkoutPage.setBillingLastName(value);}
-    public void typeBillingCompanyName(String value){checkoutPage.setBillingCompanyName(value);}
-    public void typeBillingAddress1(String value){checkoutPage.setBillingAddress1(value);}
-    public void typeBillingAddress2(String value){checkoutPage.setBillingAddress2(value);}
-    public void typeBillingCity(String value){checkoutPage.setBillingCity(value);}
-    public void typeBillingPostcode(String value){checkoutPage.setBillingEmail(value);}
-    public void typeBillingPhone(String value){checkoutPage.setBillingPhone(value);}
-    public void typeBillingEmail(String value){checkoutPage.setBillingEmail(value);}
-    public void typeBillingNotes(String value){checkoutPage.setOrderNotes(value);}
 
     @Step
     public void placeOrder(){
-        checkoutPage.clickOnPlaceButton();
+        checkoutPage.placeOrder();
     }
 
     @Step
-    public void shipToADifferentAddress(){
-        checkoutPage.clickOnShipToADifferentAddress();
+    public void verifySuccessfulMessage(String message){
+        checkoutPage.orderSuccessMessage(message);
+        Assert.assertEquals("Order details", message);
     }
 
     @Step
-    public void typeShippingFirstName(String value){checkoutPage.setShippingFirstName(value);}
-    public void typeShippingLastName(String value){checkoutPage.setShippingLastName(value);}
-    public void typeShippingCompanyName(String value){checkoutPage.setShippingCompanyName(value);}
-    public void typeShippingAddress1(String value){checkoutPage.setShippingAddress1(value);}
-    public void typeShippingAddress2(String value){checkoutPage.setShippingAddress2(value);}
-    public void typeShippingCity(String value){checkoutPage.setShippingCity(value);}
-    public void typeShippingPostcode(String value){checkoutPage.setShippingPostcode(value);}
-    public void typeOrderNotesDifferentAddress(String value){checkoutPage.setOrderCommentsForDifferentAddress(value);}
+    public void verifyCheckoutCouponMessage(){
+        Assert.assertTrue(checkoutPage.checkoutCouponMessage());
+    }
 
+    @Step
+    public void verifyPriceIsCalculatedCorrectly(){
+        Assert.assertTrue(checkoutPage.checkCheckoutPriceAndFinalOrderPrice());
+    }
+
+    @Step
+    public void verifyReturningCostumerMessageBox(String message){
+        checkoutPage.checkReturningCustomerBox(message);
+        Assert.assertEquals("Returning customer? Click here to login", message);
+    }
+
+    @Step
+    public void verifyMandatoryFieldAlert(){
+        Assert.assertTrue(checkoutPage.checkRequiredFieldsAlert());
+    }
+
+    @Step
+    public void clickShipToADifferentAddress(){
+        checkoutPage.shipToADifferentAddress();
+    }
+
+    @Step
+    public void completeCheckoutToADifferentAddress(){
+        checkoutPage.completeShipToADifferentAddressFields();
+    }
 }

@@ -1,34 +1,16 @@
 package org.fasttrackit.features.search;
 
-import net.serenitybdd.junit.runners.SerenityRunner;
-import net.thucydides.core.annotations.Managed;
-import net.thucydides.core.annotations.Steps;
-import org.fasttrackit.steps.serenity.AccountSteps;
-import org.fasttrackit.steps.serenity.LoginSteps;
-import org.junit.Before;
+import org.fasttrackit.utils.Constants;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.openqa.selenium.WebDriver;
-
-@RunWith(SerenityRunner.class)
-public class LoginTest {
-    @Managed(uniqueSession = true)
-    public WebDriver driver;
-    @Steps
-    private LoginSteps loginSteps;
-    @Steps
-    private AccountSteps accountSteps;
-    @Before
-    public void maximizeBrowser(){
-        driver.manage().window().maximize();}
 
 
+public class LoginTest extends BaseTest{
 
     @Test
     public void validLoginTest(){
         loginSteps.navigateToHomepage();
         loginSteps.navigateToLoginPage();
-        loginSteps.setCredentials("danuwenthome@gmail.com", "Sserenity!123");
+        loginSteps.setCredentials(Constants.USER_EMAIL,Constants.USER_PASS);
         loginSteps.clickOnRememberMe();
         loginSteps.clickLoginButton();
         loginSteps.verifyUsernameMessage("danuwenthome");

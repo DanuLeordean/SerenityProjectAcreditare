@@ -23,7 +23,7 @@ public class CartTest extends BaseTest{
         productSteps.selectProductFromList("Beanie with Logo");
         productSteps.clickAddToCart();
         productSteps.goToCart();
-        cartSteps.removeProductFromChekout();
+        cartSteps.removeProductFromCheckout();
         cartSteps.verifyProductRemovalMessage("Beanie with Logo");
     }
 
@@ -58,7 +58,7 @@ public class CartTest extends BaseTest{
         productSteps.selectProductFromList("Beanie with Logo");
         productSteps.clickAddToCart();
         productSteps.goToCart();
-        cartSteps.verifyEmptyCouponAllertMessage("Please enter a coupon code.");
+        cartSteps.verifyEmptyCouponAlertMessage("Please enter a coupon code.");
     }
 
     @Test
@@ -69,7 +69,7 @@ public class CartTest extends BaseTest{
         productSteps.clickAddToCart();
         productSteps.goToCart();
         cartSteps.typeIntoCouponField("QMJR8AMW");
-        cartSteps.verifyFakeCouponAllertMessage("Coupon \"qmjr8amw\" does not exist!");
+        cartSteps.verifyFakeCouponAlertMessage("Coupon \"qmjr8amw\" does not exist!");
     }
 
     @Test
@@ -80,7 +80,7 @@ public class CartTest extends BaseTest{
         productSteps.clickAddToCart();
         productSteps.goToCart();
         cartSteps.typeIntoCouponField("fyjed");
-        cartSteps.verifyAlreadyUsedCouponAllertMessage("Coupon code already applied!");
+        cartSteps.verifyAlreadyUsedCouponAlertMessage("Coupon code already applied!");
     }
     @Test
     public void verifyEmptyCartMessageIsDisplayed(){

@@ -1,60 +1,75 @@
 package org.fasttrackit.features.search;
 
-import io.cucumber.java.it.Ma;
-import net.serenitybdd.junit.runners.SerenityRunner;
-import net.thucydides.core.annotations.Managed;
-import net.thucydides.core.annotations.Steps;
-import org.fasttrackit.steps.serenity.CheckoutSteps;
-import org.junit.Before;
+import org.fasttrackit.utils.Constants;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.openqa.selenium.WebDriver;
 
-@RunWith(SerenityRunner.class)
-public class CheckoutTest {
 
-    @Managed(uniqueSession = true)
-    public WebDriver driver;
+public class CheckoutTest extends BaseTest {
 
-    @Steps
-    private CheckoutSteps checkoutSteps;
-
-    @Before
-    public void maximizeBrowser(){
-        driver.manage().window().maximize();}
 
     @Test
-    public void checkoutTest(){
-        checkoutSteps.navigateToCheckoutPage();
-        checkoutSteps.typeBillingFirstName("Danut Ilie");
-        checkoutSteps.typeBillingLastName("Leordean");
-        checkoutSteps.typeBillingCompanyName("Danu's Company");
-        checkoutSteps.typeBillingAddress1("Main Street, nr 3");
-        checkoutSteps.typeBillingAddress2("Ap 23, 1D");
-        checkoutSteps.typeBillingCity("Cluj Napoca");
-        checkoutSteps.typeBillingPostcode("256846");
-        checkoutSteps.typeBillingPhone("0754907181");
-        checkoutSteps.typeBillingEmail("danuwenthome@gmail.com");
-        checkoutSteps.typeBillingNotes("Multumesc");
+    public void verifySuccessfulPurchaseTest(){
+        loginSteps.doLogin(Constants.USER_EMAIL, Constants.USER_PASS);
+        searchSteps.doSearch("Beanie");
+        productSteps.selectProductFromList("Beanie with Logo");
+        productSteps.clickAddToCart();
+        accountSteps.goToCheckout();
+        checkoutSteps.completeCheckout();
         checkoutSteps.placeOrder();
-
-
+        checkoutSteps.verifySuccessfulMessage("Order details");
     }
 
     @Test
-    public void checkoutTestShipToADifferentAddress(){
-        checkoutSteps.navigateToCheckoutPage();
-        checkoutSteps.shipToADifferentAddress();
-        checkoutSteps.typeShippingFirstName("Danu");
-        checkoutSteps.typeShippingLastName("Ilie");
-        checkoutSteps.typeShippingCompanyName("Ilie's Company");
-        checkoutSteps.typeShippingAddress1("Second St, 38");
-        checkoutSteps.typeShippingAddress2("Bld 3, 1D");
-        checkoutSteps.typeShippingCity("Zalau");
-        checkoutSteps.typeShippingPostcode("558445");
-        checkoutSteps.typeOrderNotesDifferentAddress("Multumesc");
+    public void verifyShippingToADifferentAddress(){
+        loginSteps.doLogin(Constants.USER_EMAIL, Constants.USER_PASS);
+        searchSteps.doSearch("Beanie");
+        productSteps.selectProductFromList("Beanie with Logo");
+        productSteps.clickAddToCart();
+        accountSteps.goToCheckout();
+        checkoutSteps.clickShipToADifferentAddress();
+        checkoutSteps.completeCheckoutToADifferentAddress();
+        checkoutSteps.placeOrder();
+        checkoutSteps.verifySuccessfulMessage("Order details");
+    }
 
+    @Test
+    public void verifyCheckoutCouponMessageTest(){
+        loginSteps.doLogin(Constants.USER_EMAIL, Constants.USER_PASS);
+        accountSteps.goToCheckout();
+        checkoutSteps.verifyCheckoutCouponMessage();
+    }
 
+    @Test
+    public void verifyMandatoryFieldsAlertTest(){
+        loginSteps.navigateToHomepage();
+        searchSteps.doSearch("Beanie");
+        productSteps.selectProductFromList("Beanie with Logo");
+        productSteps.clickAddToCart();
+        accountSteps.goToCheckout();
+        checkoutSteps.placeOrder();
+        checkoutSteps.verifyMandatoryFieldAlert();
+    }
+
+    @Test
+    public void verifyReturningCostumerTest(){
+        loginSteps.navigateToLoginPage();
+        searchSteps.doSearch("Beanie");
+        productSteps.selectProductFromList("Beanie with logo");
+        productSteps.clickAddToCart();
+        accountSteps.goToCheckout();
+        checkoutSteps.verifyReturningCostumerMessageBox("Returning customer? Click here to login");
+    }
+
+    @Test
+    public void verifyCheckoutAndFinalPricesTest(){
+        loginSteps.doLogin(Constants.USER_EMAIL,Constants.USER_PASS);
+        searchSteps.doSearch("Beanie");
+        productSteps.selectProductFromList("Beanie with logo");
+        productSteps.clickAddToCart();
+        accountSteps.goToCheckout();
+        checkoutSteps.completeCheckout();
+        checkoutSteps.placeOrder();
+        checkoutSteps.verifyPriceIsCalculatedCorrectly();
     }
 
 }
