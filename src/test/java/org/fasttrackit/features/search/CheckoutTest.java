@@ -35,6 +35,9 @@ public class CheckoutTest extends BaseTest {
     @Test
     public void verifyCheckoutCouponMessageTest(){
         loginSteps.doLogin(Constants.USER_EMAIL, Constants.USER_PASS);
+        searchSteps.doSearch("Beanie");
+        productSteps.selectProductFromList("Beanie with Logo");
+        productSteps.clickAddToCart();
         accountSteps.goToCheckout();
         checkoutSteps.verifyCheckoutCouponMessage();
     }

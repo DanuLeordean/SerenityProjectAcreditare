@@ -36,21 +36,27 @@ public class LoginPage extends PageObject {
 
 
 
-    public void setLoginUsernameField(String value){typeInto(loginUsernameField, value);}
+    public void setLoginUsernameField(String value){
+        typeInto(loginUsernameField, value);}
     public void setLoginPasswordField(String value){
+
         typeInto(loginPasswordField,value);
     }
     public void clickRememberMeBox(){
+
         clickOn(rememberMeBox);
     }
     public void clickLoginButton(){
+
         clickOn(loginButton);
     }
 
     public void verifySignInErrorMessage(String error) {
+
         signInErrorMessage.shouldContainOnlyText(error);
     }
     public void verifyLoginErrorMessage(String error){
+
         missingUsernameError.shouldContainOnlyText(error);
     }
     public void clickLostPasswordButton(){
